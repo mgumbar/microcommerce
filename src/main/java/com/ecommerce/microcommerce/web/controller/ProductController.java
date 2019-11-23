@@ -2,8 +2,11 @@ package com.ecommerce.microcommerce.web.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.ecommerce.microcommerce.dao.ProductDao;
 import com.ecommerce.microcommerce.model.Product;
+import com.ecommerce.microcommerce.web.exceptions.ProduitIntrouvableException;
 import com.fasterxml.jackson.databind.ser.FilterProvider;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
@@ -20,6 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api( description="API pour es opérations CRUD sur les produits.")
 @RestController
 public class ProductController {
     @Autowired
@@ -42,10 +49,14 @@ public class ProductController {
     }
 
 
-    //Récupérer un produit par son Id
+    //Récupérer un produit par son 
+    @ApiOperation(value = "Récupère un produit grâce à son ID à condition que celui-ci soit en stock!")
     @GetMapping(value = "/Produits/{id}")
     public Product afficherUnProduit(@PathVariable int id) {
-        return productDao.findById(id);
+        Product product = productDao.findById(id);
+        if(product==null) throw new ProduitIntrouvableException("Le produit avec l'id " + id + " est INTROUVABLE. Écran Bleu si je pouvais.");
+
+        return product;
     }
 
     @GetMapping(value = "/produits/prixmin/{prixLimit}")
@@ -65,7 +76,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/Produits")
-    public void ajouterProduit(@RequestBody Product product) {
+    public void ajouterProduit(@Valid @RequestBody Product product) {
          productDao.save(product);
     }
     
