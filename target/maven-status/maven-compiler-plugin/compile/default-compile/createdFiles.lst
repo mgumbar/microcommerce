@@ -1,6 +1,11 @@
+com\ecommerce\microcommerce\dao\EmployeeRepositoryCustomImpl.class
+com\ecommerce\microcommerce\dao\EmployeeRepositoryCustom.class
+com\ecommerce\microcommerce\model\Employee.class
 com\ecommerce\microcommerce\web\exceptions\ProduitIntrouvableException.class
 com\ecommerce\microcommerce\DemoApplication.class
+com\ecommerce\microcommerce\web\controller\EmployeeController.class
 com\ecommerce\microcommerce\configuration\SwaggerConfig.class
 com\ecommerce\microcommerce\model\Product.class
 com\ecommerce\microcommerce\dao\ProductDao.class
+com\ecommerce\microcommerce\dao\EmployeeRepository.class
 com\ecommerce\microcommerce\web\controller\ProductController.class
